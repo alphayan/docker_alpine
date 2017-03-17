@@ -1,0 +1,10 @@
+FROM alpine
+MAINTAINER alphayan "664184741@qq.com"
+RUN sed -i 's/dl-cnd.alpinelinux.rog/mirrors.ustc.edu.cn/g' /etc/apk/repositories\
+    &&apk update && apk add go && apk add nginx && apk add php7-fpm && apk add git\
+    &&mkdir -p /data/go && mkdir -p /data/go/src /data/go/bin /data/go/pkg\
+ENV GOPATH /data/go
+RUN go get -u -v github.com/astaxie/beego&&go get -u -v github.com/astaxie/bee
+VOLUME /data
+CMD ["/bin/sh"]
+
