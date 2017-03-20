@@ -1,0 +1,15 @@
+FROM alpine
+MAINTAINER alphayan "664184741@qq.com"
+#设置gopath
+ENV GOPATH /data/go
+#将bin添加到环境变量，方便使用bee命令
+ENV PATH $PATH:$PATH/bin
+#修改alpine源为中科大源
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories\
+    &&apk update && apk add go && apk add nginx && apk add php7-fpm && apk add git\
+    &&apk add musl-dev && mkdir -p /data/go/src /data/go/bin /data/go/pkg \
+#   && git config --global http.sslVerify false 
+    && go get -u -v github.com/astaxie/beego && go get -u -v github.com/beego/bee
+#VOLUME /data
+CMD ["/bin/sh"]
+
